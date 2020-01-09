@@ -1,0 +1,154 @@
+<template>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <!--<h4 style="margin-top: 6px">产品经理招聘信息分析系统</h4>-->
+      <p style="margin-top: 10px">北京地区<a href="#">[切换城市]</a> </p>
+    </div>
+    <div class="card col-md-4 border-0">
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <a class="nav-link active" href="/index" style="color: black">首页</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" :href="'/transaction/'+userId" style="color: black">我的订单</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" style="color: black">个人</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-md-3" style="margin-top: -30px;margin-left: -40px;margin-right: 40px">
+      <img src="../assets/img/logo.png">
+    </div>
+    <div class="col-md-9 border-0" style="margin-top: 5px">
+      <b-form inline>
+        <b-form-group
+          id="input-group-1"
+          label="职位："
+          label-for="jobname"
+        >
+          <b-form-input list="my-list-id" id="jobname" v-model="form.jobname" style="width: 150px"/>
+          <datalist id="my-list-id">
+            <option v-for="job in jobs">{{ job }}</option>
+          </datalist>
+        </b-form-group>
+        <b-form-group
+          style="margin-left: 15px"
+          id="input-group-2"
+          label="地区："
+          label-for="region">
+          <b-form-select
+            style="width: 80px"
+            id="region"
+            v-model="form.region"
+            :options="regions"
+            required
+          />
+        </b-form-group>
+        <b-form-group
+          style="margin-left: 15px"
+          id="input-group-3"
+          label="时间："
+          label-for="range">
+          <vue-datepicker-local v-model="form.range" format="YYYY-MM" style="width:200px" />
+
+        </b-form-group>
+        <b-button @click="search" variant="primary" style="width: 80px;margin-left: 10px">查询</b-button>
+      </b-form>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 10px">
+    <div class="col-md-3">
+      <b-card-group deck>
+        <b-card no-body header="热门地区年度报告">
+          <b-list-group flush>
+            <b-list-group-item href="#">北京-产品经理</b-list-group-item>
+            <b-list-group-item href="#">北京-产品经理-金融方向</b-list-group-item>
+            <b-list-group-item href="#">上海-产品经理</b-list-group-item>
+            <b-list-group-item href="#">上海-高级产品经理</b-list-group-item>
+            <b-list-group-item href="#">上海-产品经理-电商方向</b-list-group-item>
+            <b-list-group-item href="#">上海-产品经理-金融方向</b-list-group-item>
+            <b-list-group-item href="#">深圳-产品经理</b-list-group-item>
+            <b-list-group-item href="#">成都-产品经理</b-list-group-item>
+          </b-list-group>
+        </b-card>
+      </b-card-group>
+    </div>
+    <div class="card col-md-9 border-0">
+      <div>
+        <b-carousel
+          id="carousel"
+          v-model="slide"
+          :interval="4000"
+          controls
+          indicators
+          img-width="622px"
+          img-height="322px"
+          @sliding-start="onSlideStart"
+          @sliding-end="onSlideEnd"
+        >
+          <!-- Slides with image only -->
+          <b-carousel-slide :img-src="imgSrc1"></b-carousel-slide>
+          <b-carousel-slide :img-src="imgSrc2"/>
+        </b-carousel>
+
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div><p class="text-center" style="color: darkgray"><small>Copyright © 2019-2020 产品经理招聘信息分析系统 All Rights Reserved. 备案号：京ICP备10000000号-1</small></p></div>
+
+</div>
+</template>
+
+<script>
+  import VueDatepickerLocal from 'vue-datepicker-local'
+  export default {
+    name: "Index",
+    components: {
+      VueDatepickerLocal
+    },
+    data() {
+      return {
+        slide: 0,
+        sliding: null,
+        imgSrc1: require('../assets/img/carousel_beijing2.jpg'),
+        imgSrc2: require('../assets/img/carousel_shanghai.jpg'),
+        jobs: ['产品经理', '数据产品经理', '高级产品经理', '市场产品经理'],
+        form:{
+          jobname: '',
+          region: '北京',
+          range: [new Date(),new Date()],
+        },
+        regions: [{ text: '北京', value: '北京' }, '上海', '成都', '武汉', '深圳','重庆','天津','南京','广州'],
+        userId: 19232
+      }
+    },
+    methods: {
+      onSlideStart(slide) {
+        this.sliding = true
+      },
+      onSlideEnd(slide) {
+        this.sliding = false
+      },
+      search(){
+        this.$router.push({
+          path: '/search',
+          query:{
+            job: this.form.jobname,
+            region: this.form.region,
+            range: this.form.range
+          }
+        })
+      }
+    }
+  }
+</script>
+
+<style scoped>
+
+</style>

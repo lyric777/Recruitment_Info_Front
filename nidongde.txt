@@ -1,0 +1,56 @@
+
+# Installing project dependencies ...
+# ========================
+
+npm WARN deprecated extract-text-webpack-plugin@3.0.2 Deprecated. Please use httpsgithub.comwebpack-contribmini-css-extract-plugin
+npm WARN deprecated browserslist@2.11.3 Browserslist 2 could fail on reading Browserslist 3.0 config used in other tools.
+npm WARN deprecated bfj-node4@5.3.1 Switch to the `bfj` package for fixes and new features!
+npm WARN deprecated core-js@2.6.11 core-js@3 is no longer maintained and not recommended for usage due to the number of issues. Please, upgrade your dependencies to the actual version of core-js@3.
+npm WARN deprecated browserslist@1.7.7 Browserslist 2 could fail on reading Browserslist 3.0 config used in other tools.
+npm WARN deprecated circular-json@0.3.3 CircularJSON is in maintenance only, flatted is its successor.
+
+ core-js@2.6.11 postinstall FRecruitment_Info_node_modulescore-js
+ node -e try{require('.postinstall')}catch(e){}
+
+Thank you for using core-js ( httpsgithub.comzloirockcore-js ) for polyfilling JavaScript standard library!
+
+The project needs your help! Please consider supporting of core-js on Open Collective or Patreon
+ httpsopencollective.comcore-js
+ httpswww.patreon.comzloirock
+
+Also, the author of core-js ( httpsgithub.comzloirock ) is looking for a good job -)
+
+
+ ejs@2.7.4 postinstall FRecruitment_Info_node_modulesejs
+ node .postinstall.js
+
+Thank you for installing EJS built with the Jake JavaScript build tool (httpsjakejs.com)
+
+
+ uglifyjs-webpack-plugin@0.4.6 postinstall FRecruitment_Info_node_moduleswebpacknode_modulesuglifyjs-webpack-plugin
+ node libpost_install.js
+
+npm notice created a lockfile as package-lock.json. You should commit this file.
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY fsevents@1.2.11 (node_modulesfsevents)
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY Unsupported platform for fsevents@1.2.11 wanted {osdarwin,archany} (current {oswin32,archx64})
+
+added 1336 packages in 697.805s
+
+
+Running eslint --fix to comply with chosen preset rules...
+# ========================
+
+
+ recruitment_info__sys_front@1.0.0 lint FRecruitment_Info_
+ eslint --ext .js,.vue src --fix
+
+
+# Project initialization finished!
+# ========================
+
+To get started
+
+  cd Recruitment_Info_
+  npm run dev
+
+Documentation can be found at httpsvuejs-templates.github.iowebpack

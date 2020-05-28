@@ -4,7 +4,6 @@
   <div class="row">
     <div class="col-md-8">
       <!--<h4 style="margin-top: 6px">产品经理招聘信息分析系统</h4>-->
-      <p style="margin-top: 10px">北京地区<a href="#">[切换城市]</a> </p>
     </div>
     <div class="card col-md-4 border-0">
       <ul class="nav justify-content-end">
@@ -12,10 +11,10 @@
           <a class="nav-link active" href="/index" style="color: black">首页</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" :href="'/transaction/'+userId" style="color: black">我的订单</a>
+          <a class="nav-link" href="/mark" style="color: black">我的收藏</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" style="color: black">个人</a>
+          <a class="nav-link" @click="logout" style="color: black">登出</a>
         </li>
       </ul>
     </div>
@@ -66,14 +65,14 @@
       <b-card-group deck>
         <b-card no-body header="热门地区年度报告">
           <b-list-group flush>
+            <b-list-group-item href="#">全国-产品经理</b-list-group-item>
+            <b-list-group-item href="#">全国-金融产品经理</b-list-group-item>
+            <b-list-group-item href="#">全国-产品经理助理</b-list-group-item>
+            <b-list-group-item href="#">全国-高级产品经理</b-list-group-item>
+            <b-list-group-item href="#">全国-电商产品经理</b-list-group-item>
             <b-list-group-item href="#">北京-产品经理</b-list-group-item>
-            <b-list-group-item href="#">北京-产品经理-金融方向</b-list-group-item>
             <b-list-group-item href="#">上海-产品经理</b-list-group-item>
-            <b-list-group-item href="#">上海-高级产品经理</b-list-group-item>
-            <b-list-group-item href="#">上海-产品经理-电商方向</b-list-group-item>
-            <b-list-group-item href="#">上海-产品经理-金融方向</b-list-group-item>
             <b-list-group-item href="#">深圳-产品经理</b-list-group-item>
-            <b-list-group-item href="#">成都-产品经理</b-list-group-item>
           </b-list-group>
         </b-card>
       </b-card-group>
@@ -107,10 +106,12 @@
 
 <script>
   import VueDatepickerLocal from 'vue-datepicker-local'
+  import VDistpicker from 'v-distpicker'
   export default {
     name: "Index",
     components: {
-      VueDatepickerLocal
+      VueDatepickerLocal,
+      VDistpicker
     },
     data() {
       return {
@@ -118,13 +119,13 @@
         sliding: null,
         imgSrc1: require('../assets/img/carousel_beijing2.jpg'),
         imgSrc2: require('../assets/img/carousel_shanghai.jpg'),
-        jobs: ['产品经理', '数据产品经理', '高级产品经理', '市场产品经理'],
+        jobs: ['产品经理', '数据产品经理', '高级产品经理', '产品经理助理','金融产品经理','电商产品经理', '售前产品经理', '策略产品经理', '软件产品经理', '法律产品经理', '需求分析师'],
         form:{
           jobname: '',
-          region: '北京',
+          region: '全国',
           range: [new Date(),new Date()],
         },
-        regions: [{ text: '北京', value: '北京' }, '上海', '成都', '武汉', '深圳','重庆','天津','南京','广州'],
+        regions: [{ text: '全国', value: '全国' },'北京', '上海', '成都', '武汉', '深圳','重庆','天津','南京','广州','苏州','合肥','无锡','杭州'],
         userId: 19232
       }
     },
@@ -144,6 +145,10 @@
             range: this.form.range
           }
         })
+      },
+      logout(){
+        sessionStorage.clear();
+        this.$router.push('/login')
       }
     }
   }

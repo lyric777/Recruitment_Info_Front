@@ -13,6 +13,9 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap-vue": "^2.1.0",
+    "echarts": "^4.7.0",
+    "echarts-wordcloud": "^1.1.3",
+    "v-distpicker": "^1.2.3",
     "vue": "^2.5.2",
     "vue-datepicker-local": "^1.0.19",
     "vue-icon": "^2.1.1",

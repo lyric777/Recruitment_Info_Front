@@ -1,89 +1,80 @@
 <template>
-<div>
-<loading v-if="isLoading"> </loading>
-<div class="container" v-show="isShow">
-  <div class="row">
-  <div class="col-md-8">
-    <img src="../assets/img/logo.png">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <img src="../assets/img/logo.png">
+        </div>
+        <div class="card col-md-4 border-0">
+          <ul class="nav justify-content-end" style="margin-top: 35px">
+            <li class="nav-item">
+              <a class="nav-link active" href="/index" style="color: black">首页</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/mark" style="color: black">我的收藏</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" @click="logout" style="color: black">登出</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+      <div class="row" style="margin-top: 10px">
+        <div class="col-md-8">
+          <b-card
+            :title="$route.query.job"
+            tag="article"
+            class="mb-2 border-top-0 border-left-0 border-bottom-0"
+          >
+            <b-card-text>
+              <p><v-icon class="clock" name="clock"></v-icon>2020-5</p>
+              {{$route.query.region}}全国地区{{$route.query.job}}数据产品经理岗位需求总览
+              <!--<img :src="require('../assets/img/cloud.png')">-->
+
+              <div id="wordcloud" style="width: 700px;height: 500px;"></div>
+              <div id="graph" style="width: 700px;height: 500px;"></div>
+
+            </b-card-text>
+          </b-card>
+        </div>
+
+
+        <div class="col-md-4">
+          <b-card
+            tag="article"
+            class="mb-2 border-0"
+          >
+            <b-card-text>
+              数据来源
+              <li v-for="img in imgs">
+                <br>
+                <img :src="img" />
+              </li>
+              <br><br>
+              共检索到370条招聘信息记录。
+              <br>
+              该地区、时间范围内的招聘信息总条数为3137条。
+              <br><br>
+              {{$route.query.job}}数据产品经理岗位技能关键字：<br><span v-for="it in word_list">{{it.name}} </span>
+
+
+            </b-card-text>
+          </b-card>
+
+        </div>
+      </div>
+      <hr>
+      <div><p class="text-center" style="color: darkgray"><small>Copyright © 2019-2020 产品经理招聘信息分析系统 All Rights Reserved. 备案号：京ICP备10000000号-1</small></p></div>
+
   </div>
-  <div class="card col-md-4 border-0">
-    <ul class="nav justify-content-end" style="margin-top: 35px">
-      <li class="nav-item">
-        <a class="nav-link active" href="/index" style="color: black">首页</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/mark" style="color: black">我的收藏</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" @click="logout" style="color: black">登出</a>
-      </li>
-    </ul>
-  </div>
-</div>
-  <hr>
-  <div class="row" style="margin-top: 10px">
-    <div class="col-md-8">
-      <b-card
-        :title="$route.query.job"
-        tag="article"
-        class="mb-2 border-top-0 border-left-0 border-bottom-0"
-      >
-        <b-card-text>
-          <p><v-icon class="clock" name="clock"></v-icon>2020-5</p>
-          {{$route.query.region}}地区{{$route.query.job}}岗位需求总览
-          <!--<img :src="require('../assets/img/cloud.png')">-->
-
-          <div id="wordcloud" style="width: 700px;height: 500px;"></div>
-          <div id="graph" style="width: 700px;height: 500px;"></div>
-
-        </b-card-text>
-      </b-card>
-    </div>
-
-
-    <div class="col-md-4">
-      <b-card
-        tag="article"
-        class="mb-2 border-0"
-      >
-        <b-card-text>
-          <b-button variant="outline-primary" style="width: 140px;font-size: 16px;text-align: center; line-height:30px;">
-            <v-icon class="star" name="star" />     收       藏
-          </b-button>
-          <br><br>
-          数据来源
-          <li v-for="img in imgs">
-            <br>
-            <img :src="img" />
-          </li>
-          <br><br>
-          共检索到370条招聘信息记录。
-          <br>
-          该地区、时间范围内的招聘信息总条数为3137条。
-          <br><br>
-          {{$route.query.job}}岗位技能关键字：<br><span v-for="it in word_list">{{it.name}} </span>
-
-
-        </b-card-text>
-      </b-card>
-
-    </div>
-  </div>
-  <hr>
-  <div><p class="text-center" style="color: darkgray"><small>Copyright © 2019-2020 产品经理招聘信息分析系统 All Rights Reserved. 备案号：京ICP备10000000号-1</small></p></div>
-
-</div>
-</div>
 </template>
 
 <script>
   import echarts from "echarts";
   import "echarts-wordcloud/dist/echarts-wordcloud";
   import "echarts-wordcloud/dist/echarts-wordcloud.min";
-  import Loading from "./Loading";
   export default {
-    name: "SearchResult",
-    components: {Loading},
+    name: "Result",
     data(){
       return{
         imgs: [
@@ -272,16 +263,9 @@
       }
     },
     mounted() {
-      setTimeout(() =>{
-        this.draw_word_cloud_view()
-        this.word_cloud_init_view_data()
-        this.draw_graph()
-        this.isLoading = false;
-        this.isShow = true;
-      },1000);
-
-
-
+      this.draw_word_cloud_view()
+      this.word_cloud_init_view_data()
+      this.draw_graph()
     },
 
   }
@@ -300,3 +284,4 @@
     list-style-type: none;
   }
 </style>
+

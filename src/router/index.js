@@ -13,7 +13,8 @@ const Login = () => import('../components/Login')
 const Index = () => import('../components/Index')
 const Register = () => import('../components/Register')
 const SearchResult = () => import('../components/SearchResult')
-const Transaction = () => import('../components/Transaction')
+const Mark = () => import('../components/Mark')
+const Result = () => import('../components/Result')
 
 Vue.use(Router);
 
@@ -43,8 +44,12 @@ export default new Router({
       component: SearchResult
     },
     {
-      path: '/transaction/:userId',
-      component: Transaction
+      path: '/mark',
+      component: Mark
+    },
+    {
+      path:'/result',
+      component: Result
     }
   ],
   mode: 'history',

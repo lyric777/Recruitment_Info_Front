@@ -29,7 +29,7 @@
         class="mb-2 border-top-0 border-left-0 border-bottom-0"
       >
         <b-card-text>
-          <p><v-icon class="clock" name="clock"></v-icon>2020-5</p>
+          <p><v-icon class="clock" name="clock"></v-icon>{{time_range}}</p>
           {{$route.query.region}}地区{{$route.query.job}}岗位需求总览
           <!--<img :src="require('../assets/img/cloud.png')">-->
 
@@ -57,7 +57,7 @@
             <img :src="img" />
           </li>
           <br><br>
-          共检索到370条招聘信息记录。
+          共检索到{{count}}条招聘信息记录。
           <br>
           该地区、时间范围内的招聘信息总条数为3137条。
           <br><br>
@@ -70,7 +70,7 @@
     </div>
   </div>
   <hr>
-  <div><p class="text-center" style="color: darkgray"><small>Copyright © 2019-2020 产品经理招聘信息分析系统 All Rights Reserved. 备案号：京ICP备10000000号-1</small></p></div>
+  <div><p class="text-center" style="color: darkgray"><small>Copyright © 2019-2020 产品经理招聘信息分析系统 All Rights Reserved. </small></p></div>
 
 </div>
 </div>
@@ -94,7 +94,9 @@
         isShow:false,
         word_cloud_view: null,
         word_cloud_options: {},
-        word_list:[]
+        word_list: [],
+        time_range: '',
+        count: 0
       }
     },
     methods: {
@@ -254,8 +256,10 @@
         const path = 'http://localhost:5000/search';
         axios.post(path, payload)
           .then((res) => {
-            console.log(res.data.word_cloud)
             this.word_list = res.data.word_cloud
+            this.time_range = res.data.range
+            this.count = res.data.count
+            console.log(this.word_list)
           })
           .catch((error) => {
             console.log(error)
@@ -272,12 +276,8 @@
         this.draw_graph()
         this.isLoading = false;
         this.isShow = true;
-      },1000);
-
-
-
+      },2500);
     },
-
   }
 </script>
 

@@ -53,7 +53,7 @@
           id="input-group-3"
           label="时间："
           label-for="range">
-          <vue-datepicker-local v-model="form.range" format="YYYY-MM" style="width:200px" />
+          <vue-datepicker-local v-model="form.range" format="YYYY-MM" style="width:200px" :disabledDate="disabledDate" />
 
         </b-form-group>
         <b-button @click="search" variant="primary" style="width: 80px;margin-left: 10px">查询</b-button>
@@ -142,9 +142,13 @@
           query:{
             job: this.form.jobname,
             region: this.form.region,
-            range: this.form.range
+            range: [this.form.range[0].toLocaleDateString(),this.form.range[1].toLocaleDateString()]
           }
         })
+      },
+      disabledDate(time){
+        //console.log(time)
+        if(time.getTime() < new Date(2019,12,1).getTime()) return true;
       },
       logout(){
         sessionStorage.clear();

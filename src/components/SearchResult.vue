@@ -81,6 +81,7 @@
   import "echarts-wordcloud/dist/echarts-wordcloud";
   import "echarts-wordcloud/dist/echarts-wordcloud.min";
   import Loading from "./Loading";
+  import axios from "axios";
   export default {
     name: "SearchResult",
     components: {Loading},
@@ -93,37 +94,7 @@
         isShow:false,
         word_cloud_view: null,
         word_cloud_options: {},
-        word_list: [
-          {name: ' 产品 ',value: 412.37554029678046 },
-          {name: ' 能力 ',value: 349.4460601590265 },
-          {name: ' 经验 ',value: 292.4778061135756 },
-          {name: ' 工作经验 ',value: 113.53952100682282 },
-          {name: ' 管理 ',value: 101.73141082211325 },
-          {name: ' 分析 ',value: 70.84866110825743 },
-          {name: ' 逻辑思维 ',value: 141.69732221651486 },
-          {name: ' 沟通能力 ',value: 135.3391090401328 },
-          {name: ' 团队合作 ',value: 74.48192578047578 },
-          {name: ' 工作 ',value: 241.61210070251894 },
-          {name: ' 数据 ',value: 81.74845512491244 },
-          {name: ' 业务 ',value: 84.47340362907619 },
-          {name: ' 学习 ',value: 148.96385156095155 },
-          {name: ' 文档 ',value: 70.84866110825743 },
-          {name: ' 沟通 ',value: 195.28797613173526 },
-          {name: ' 本科及以上学历 ',value: 77.20687428463951 },
-          {name: ' 数据分析 ',value: 410.81457250265908 },
-          {name: ' 执行力 ',value: 71.75697727631203 },
-          {name: ' 逻辑 ',value: 79.02350662074868 },
-          {name: ' 清晰 ',value: 73.5736096124212 },
-          {name: ' 工具 ',value: 88.10666830129452 },
-          {name: ' 需求 ',value: 83.56508746102159 },
-          {name: ' 客户 ',value: 69.03202877214827 },
-          {name: ' 设计 ',value: 93.556565309622 },
-          {name: ' 思维 ',value: 75.39024194853035 },
-          {name: ' 独立 ',value: 79.02350662074868 },
-          {name: ' 抗压能力 ',value: 88.10666830129452 },
-          {name: ' 互联网 ',value: 95.37319764573117 },
-          {name: ' 逻辑思维 能力 ',value: 95.37319764573117 },
-          {name: ' 学习 能力 ',value: 108.08962399849533 }]
+        word_list:[]
       }
     },
     methods: {
@@ -149,7 +120,7 @@
           height: '100%',
           right: null,
           bottom: null,
-          sizeRange: [20, 100],
+          sizeRange: [20, 120],
           rotationRange: [0, 0],
           autoSize: {
             enable: true,
@@ -158,7 +129,7 @@
           textPadding: 0,
           // rotationStep: 45,
           // gridSize: 8,
-          drawOutOfBound: false,
+          drawOutOfBound:false,
           textStyle: {
             normal: {
               fontFamily: 'sans-serif',
@@ -269,7 +240,30 @@
           ],
         };
         KnowledgeOP.setOption(option);
+      },
+      get_data(){
+        let job = this.$route.query.job;
+        let region = this.$route.query.region;
+        let range = this.$route.query.range;
+        const payload = {
+          'job': job,
+          'region': region,
+          'range': range
+        };
+        console.log(job)
+        const path = 'http://localhost:5000/search';
+        axios.post(path, payload)
+          .then((res) => {
+            console.log(res.data.word_cloud)
+            this.word_list = res.data.word_cloud
+          })
+          .catch((error) => {
+            console.log(error)
+          })
       }
+    },
+    created() {
+      this.get_data()
     },
     mounted() {
       setTimeout(() =>{

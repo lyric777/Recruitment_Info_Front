@@ -63,7 +63,7 @@
   <div class="row" style="margin-top: 10px">
     <div class="col-md-3">
       <b-card-group deck>
-        <b-card no-body header="热门地区年度报告">
+        <b-card no-body header="热门地区当月报告">
           <b-list-group flush>
             <b-list-group-item href="#">全国-产品经理</b-list-group-item>
             <b-list-group-item href="#">全国-金融产品经理</b-list-group-item>

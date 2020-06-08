@@ -247,7 +247,7 @@
         this.draw_graph()
         this.isLoading = false;
         this.isShow = true;
-      },4000);
+      },4500);
     },
   }
 </script>

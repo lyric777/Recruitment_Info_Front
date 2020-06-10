@@ -47,7 +47,7 @@
         class="mb-2 border-0"
       >
         <b-card-text>
-          <b-button variant="outline-primary" style="width: 140px;font-size: 16px;text-align: center; line-height:30px;">
+          <b-button :pressed.sync="toggle" @click="mark" variant="outline-primary" style="width: 140px;font-size: 16px;text-align: center; line-height:30px;" >
             <v-icon class="star" name="star" />     收       藏
           </b-button>
           <br><br>
@@ -99,10 +99,47 @@
         count: 0,
         count_all: 0,
         fliterNode:[],
-        link: []
+        link: [],
+        toggle: false
       }
     },
     methods: {
+      mark(){
+        console.log(this.toggle)
+        console.log(sessionStorage.getItem('user'))
+        let yy = new Date().getFullYear();
+        let mm = new Date().getMonth()+1<10 ? '0'+(new Date().getMonth()+1) : new Date().getMonth()+1;
+        let dd = new Date().getDate()<10 ? '0'+new Date().getDate() : new Date().getDate();
+        let hh = new Date().getHours()<10 ? '0'+new Date().getHours() : new Date().getHours();
+        let mf = new Date().getMinutes()<10 ? '0'+new Date().getMinutes() : new Date().getMinutes();
+        let ss = new Date().getSeconds()<10 ? '0'+new Date().getSeconds() : new Date().getSeconds();
+        let marktime = yy+'-'+mm+'-'+dd+' '+hh+':'+mf+':'+ss;
+        console.log(marktime)
+        const path = 'http://localhost:5000/mark';
+        const payload={
+          'user': sessionStorage.getItem('user'),
+          'word_list': this.word_list,
+          'count': this.count,
+          'count_all': this.count_all,
+          'fliterNode': this.fliterNode,
+          'link': this.link,
+          'job': this.$route.query.job,
+          'region': this.$route.query.region,
+          'range': this.$route.query.range,
+          'marktime': marktime,
+          'markdate': ''+yy+mm+dd,
+          'toggle': this.toggle,
+          'id': sessionStorage.getItem('id')
+        }
+        axios.post(path, payload)
+          .then((res) => {
+            console.log(res.data)
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+
+      },
       logout(){
         sessionStorage.clear();
         this.$router.push('/login')
@@ -230,7 +267,6 @@
             this.count_all = res.data.count_all
             this.fliterNode = res.data.fliterNode
             this.link = res.data.link
-            console.log(this.link)
           })
           .catch((error) => {
             console.log(error)

@@ -15,6 +15,7 @@ const Register = () => import('../components/Register')
 const SearchResult = () => import('../components/SearchResult')
 const Mark = () => import('../components/Mark')
 const Result = () => import('../components/Result')
+const Report = () => import('../components/Report')
 
 Vue.use(Router);
 
@@ -48,8 +49,12 @@ export default new Router({
       component: Mark
     },
     {
-      path:'/result',
+      path:'/result/:markId',
       component: Result
+    },
+    {
+      path:'/report/:keyword',
+      component: Report
     }
   ],
   mode: 'history',

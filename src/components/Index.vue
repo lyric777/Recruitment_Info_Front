@@ -65,14 +65,14 @@
       <b-card-group deck>
         <b-card no-body header="热门地区当月报告">
           <b-list-group flush>
-            <b-list-group-item href="#">全国-产品经理</b-list-group-item>
-            <b-list-group-item href="#">全国-金融产品经理</b-list-group-item>
-            <b-list-group-item href="#">全国-产品经理助理</b-list-group-item>
-            <b-list-group-item href="#">全国-高级产品经理</b-list-group-item>
-            <b-list-group-item href="#">全国-电商产品经理</b-list-group-item>
-            <b-list-group-item href="#">北京-产品经理</b-list-group-item>
-            <b-list-group-item href="#">上海-产品经理</b-list-group-item>
-            <b-list-group-item href="#">深圳-产品经理</b-list-group-item>
+            <b-list-group-item href="/report/全国-产品经理">全国-产品经理</b-list-group-item>
+            <b-list-group-item href="/report/全国-金融产品经理">全国-金融产品经理</b-list-group-item>
+            <b-list-group-item href="/report/全国-产品经理助理">全国-产品经理助理</b-list-group-item>
+            <b-list-group-item href="/report/全国-高级产品经理">全国-高级产品经理</b-list-group-item>
+            <b-list-group-item href="/report/全国-电商产品经理">全国-电商产品经理</b-list-group-item>
+            <b-list-group-item href="/report/北京-产品经理">北京-产品经理</b-list-group-item>
+            <b-list-group-item href="/report/上海-产品经理">上海-产品经理</b-list-group-item>
+            <b-list-group-item href="/report/深圳-产品经理">深圳-产品经理</b-list-group-item>
           </b-list-group>
         </b-card>
       </b-card-group>
@@ -91,8 +91,8 @@
           @sliding-end="onSlideEnd"
         >
           <!-- Slides with image only -->
-          <b-carousel-slide :img-src="imgSrc1"></b-carousel-slide>
-          <b-carousel-slide :img-src="imgSrc2"/>
+          <a href="/report/北京-产品经理"><b-carousel-slide :img-src="imgSrc1" /></a>
+          <a href="/report/上海-产品经理"><b-carousel-slide :img-src="imgSrc2" /></a>
         </b-carousel>
 
       </div>
@@ -117,8 +117,8 @@
       return {
         slide: 0,
         sliding: null,
-        imgSrc1: require('../assets/img/carousel_beijing2.jpg'),
-        imgSrc2: require('../assets/img/carousel_shanghai.jpg'),
+        imgSrc1: require('../assets/img/carousel_beijing3.jpg'),
+        imgSrc2: require('../assets/img/carousel_shanghai2.jpg'),
         jobs: ['产品经理', '数据产品经理', '高级产品经理', '产品经理助理','金融产品经理','电商产品经理', '售前产品经理', '策略产品经理', '软件产品经理', '法律产品经理', '需求分析师'],
         form:{
           jobname: '',
@@ -148,12 +148,16 @@
       },
       disabledDate(time){
         //console.log(time)
-        if(time.getTime() < new Date(2019,12,1).getTime()) return true;
+        if(time.getTime() < new Date(2020,2,1).getTime()) return true;
       },
       logout(){
         sessionStorage.clear();
         this.$router.push('/login')
       }
+    },
+    created() {
+      sessionStorage.removeItem('id')
+
     }
   }
 </script>

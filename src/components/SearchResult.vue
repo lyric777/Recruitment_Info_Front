@@ -114,7 +114,6 @@
         let mf = new Date().getMinutes()<10 ? '0'+new Date().getMinutes() : new Date().getMinutes();
         let ss = new Date().getSeconds()<10 ? '0'+new Date().getSeconds() : new Date().getSeconds();
         let marktime = yy+'-'+mm+'-'+dd+' '+hh+':'+mf+':'+ss;
-        console.log(marktime)
         const path = 'http://localhost:5000/mark';
         const payload={
           'user': sessionStorage.getItem('user'),
@@ -133,7 +132,8 @@
         }
         axios.post(path, payload)
           .then((res) => {
-            console.log(res.data)
+            console.log(res.data.id)
+            sessionStorage.setItem('id', res.data.id)
           })
           .catch((error) => {
             console.log(error)
@@ -257,7 +257,6 @@
           'region': region,
           'range': range
         };
-        console.log(job)
         const path = 'http://localhost:5000/search';
         axios.post(path, payload)
           .then((res) => {
@@ -274,6 +273,7 @@
       }
     },
     created() {
+      sessionStorage.removeItem('id')
       this.get_data()
     },
     mounted() {
